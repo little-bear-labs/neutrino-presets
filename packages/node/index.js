@@ -17,7 +17,6 @@ module.exports = (neutrino, { babel = {}, ...opts } = {}) => {
       plugins: [
         [require.resolve('@babel/plugin-proposal-decorators'), {
           legacy: true,
-          decoratorsBeforeExport: true,
         }],
         [require.resolve('@babel/plugin-proposal-class-properties'), {
           loose: true,
