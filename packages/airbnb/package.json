@@ -9,7 +9,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@conduitvc/eslint": "1.0.0",
+    "@conduitvc/eslint": "^1.0.0",
     "@neutrinojs/airbnb": "^9.0.0-beta.1",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-flowtype": "^3.2.0",
