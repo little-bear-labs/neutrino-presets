@@ -1,6 +1,6 @@
 {
   "name": "@conduitvc/airbnb-base",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@conduitvc/eslint": "^1.0.2",
+    "@conduitvc/eslint": "^1.0.3",
     "@neutrinojs/airbnb-base": "^9.0.0-beta.1",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-flowtype": "^3.2.0",
