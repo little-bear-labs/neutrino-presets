@@ -1,0 +1,23 @@
+{
+  "name": "@conduitvc/airbnb-base",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MIT",
+  "repository": "https://github.com/ConduitVC/neutrino-presets/tree/master/packages/airbnb-base",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@conduitvc/eslint": "^1.0.0",
+    "@neutrinojs/airbnb-base": "^9.0.0-beta.1",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-typescript": "^0.13.0"
+  },
+  "peerDependencies": {
+    "eslint": "^5.0.0",
+    "neutrino": "^9.0.0-beta.1"
+  }
+}

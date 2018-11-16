@@ -1,0 +1,11 @@
+{
+  "name": "@conduitvc/eslint",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MIT",
+  "repository": "https://github.com/ConduitVC/neutrino-presets/tree/master/packages/eslint",
+  "publishConfig": {
+    "access": "public"
+  }
+}
