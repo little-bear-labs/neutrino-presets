@@ -1,6 +1,11 @@
 module.exports = {
   eslint: {
     baseConfig: {
+      parserOptions: {
+        ecmaFeatures: {
+          legacyDecorators: true,
+        },
+      },
       extends: ['eslint-config-prettier'],
       plugins: ['eslint-plugin-prettier'],
       rules: {
