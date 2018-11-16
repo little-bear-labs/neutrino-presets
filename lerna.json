@@ -5,7 +5,9 @@
   "version": "0.0.0",
   "command": {
     "publish": {
-      "npmClient": "yarn"
+      "exact": "true",
+      "forcePublish": "*",
+      "gitRemote": "upstream"
     }
   }
 }
