@@ -2,12 +2,19 @@ const node = require('@neutrinojs/node');
 const compileLoader = require('@neutrinojs/compile-loader');
 const merge = require('deepmerge');
 
-module.exports = (neutrino, { babel = {}, ...opts } = {}) => {
+module.exports = (
+  neutrino,
+  {
+    babel = {},
+    flow = false,
+    typescript = false,
+    ...opts
+  } = {}) => {
   const presets = [];
 
-  if (opts.typescript) {
+  if (typescript) {
     presets.push(require.resolve('@babel/preset-typescript'));
-  } else if (opts.flow) {
+  } else if (flow) {
     presets.push(require.resolve('@babel/preset-flow'));
   }
 

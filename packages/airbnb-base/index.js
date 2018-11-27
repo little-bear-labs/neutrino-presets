@@ -1,27 +1,21 @@
 const airbnbBase = require('@neutrinojs/airbnb-base');
-const defaults = require('@conduitvc/eslint');
+const eslint = require('@conduitvc/eslint');
 const { merge } = require('eslint/lib/config/config-ops');
 
 module.exports = (neutrino, { flow, typescript, ...opts } = {}) => {
-  const airbnbDefaults = merge(defaults.eslint, {
+  const extensions = [];
+  const plugins = [];
+  const rules = {};
+  const base = eslint({ flow, typescript });
+  const airbnbDefaults = merge(base.eslint, {
     baseConfig: {
-      ...(flow
-          ? {
-            extends: ['plugin:flowtype/recommended'],
-            plugins: ['eslint-plugin-flowtype']
-          }
-          : null
-      ),
-      ...(typescript
-          ? {
-            plugins: ['eslint-plugin-typescript']
-          }
-          : null
-      ),
+      extends: extensions,
+      plugins,
+      rules,
     },
   });
   const options = {
-    ...defaults,
+    ...base,
     ...opts,
     eslint: merge(airbnbDefaults, opts.eslint || {}),
   };
