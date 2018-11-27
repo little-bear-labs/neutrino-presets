@@ -1,6 +1,6 @@
 {
   "name": "@conduitvc/airbnb",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "main": "index.js",
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@conduitvc/eslint": "^1.0.3",
+    "@conduitvc/eslint": "^2.0.0",
     "@neutrinojs/airbnb": "^9.0.0-rc.0"
   },
   "peerDependencies": {
