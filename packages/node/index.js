@@ -1,5 +1,5 @@
 const node = require('@neutrinojs/node');
-const compileLoader = require('@neutrinojs/compile-loader');
+const babelMerge = require('babel-merge');
 const merge = require('deepmerge');
 
 module.exports = (
@@ -20,7 +20,7 @@ module.exports = (
 
   const options = merge({
     // Decorators generally need to be enabled *before* other syntax
-    babel: compileLoader.merge({
+    babel: babelMerge({
       plugins: [
         [require.resolve('@babel/plugin-proposal-decorators'), {
           legacy: true,
