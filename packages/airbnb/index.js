@@ -2,7 +2,10 @@ const airbnb = require('@neutrinojs/airbnb');
 const eslint = require('@conduitvc/eslint');
 const { merge } = require('eslint/lib/config/config-ops');
 
+const TS_EXTENSIONS = ['.js', '.jsx', '.mjs', '.json', '.tsx', '.ts'];
+
 module.exports = (neutrino, { flow, typescript, ...opts } = {}) => {
+  const base = eslint({ flow, typescript });
   const extensions = ['prettier/react'];
   const plugins = [];
   const rules = {
@@ -31,13 +34,19 @@ module.exports = (neutrino, { flow, typescript, ...opts } = {}) => {
     'react/prop-types': 'off',
     'react/sort-comp': 'off',
   };
-  const base = eslint({ flow, typescript });
+  const settings = {};
 
   if (typescript) {
     rules['react/jsx-filename-extension'] = [
       'error',
       { extensions: ['.tsx', '.ts', '.jsx', '.js'] }
     ];
+    settings['import/resolver'] = {
+      node: {
+        extensions: TS_EXTENSIONS
+      }
+    };
+    settings['import/extensions'] = TS_EXTENSIONS;
   }
 
   const airbnbDefaults = merge(base.eslint, {
