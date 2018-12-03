@@ -29,6 +29,9 @@ module.exports = (neutrino, { flow, typescript, ...opts } = {}) => {
       }],
       'react/jsx-indent': 'off',
       'react/prefer-stateless-function': 'off',
+      'react/no-access-state-in-setstate': 'off',
+      'react/no-did-update-set-state': 'off',
+      'react/no-multi-comp': ['error', { ignoreStateless: false }],
       'react/prop-types': ['error', {
         ignore: [
           // react-router
