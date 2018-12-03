@@ -28,9 +28,23 @@ module.exports = (neutrino, { flow, typescript, ...opts } = {}) => {
         eventHandlerPropPrefix: 'on',
       }],
       'react/jsx-indent': 'off',
-      // styling choice which makes using redux in es6 style more difficult.
-      'react/no-multi-comp': 'off',
       'react/prefer-stateless-function': 'off',
+      'react/prop-types': ['error', {
+        ignore: [
+          // react-router
+          'history',
+          'location',
+          'match',
+          // material-ui
+          'classes',
+          'theme',
+          // apollo
+          'mutate',
+          'data',
+          'fetch',
+          'refetch',
+        ],
+      }],
       'react/sort-comp': 'off',
     },
     settings: {},
