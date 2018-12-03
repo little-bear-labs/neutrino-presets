@@ -6,28 +6,26 @@ const TS_EXTENSIONS = ['.js', '.mjs', '.json', '.ts'];
 
 module.exports = (neutrino, { flow, typescript, ...opts } = {}) => {
   const base = eslint({ flow, typescript });
-  const extensions = [];
-  const plugins = [];
-  const rules = {};
-  const settings = {};
+  const baseConfig = {
+    extends: [],
+    plugins: [],
+    rules: {
+      'no-console': 'off',
+    },
+    settings: {},
+  };
 
   if (typescript) {
-    settings['import/resolver'] = {
+    baseConfig.settings['import/resolver'] = {
       node: {
         extensions: TS_EXTENSIONS
       }
     };
-    settings['import/extensions'] = TS_EXTENSIONS;
+    baseConfig.settings['import/extensions'] = TS_EXTENSIONS;
+    baseConfig.parser = 'typescript-eslint-parser';
   }
 
-  const airbnbDefaults = merge(base.eslint, {
-    baseConfig: {
-      extends: extensions,
-      plugins,
-      rules,
-      settings,
-    },
-  });
+  const airbnbDefaults = merge(base.eslint, { baseConfig });
   const options = {
     ...base,
     ...opts,

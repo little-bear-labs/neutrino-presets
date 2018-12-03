@@ -1,0 +1,272 @@
+# `@conduitvc/jest`
+
+> Neutrino preset that supports testing projects with Jest according to
+Conduit's process and settings.
+
+## Features
+
+- Zero upfront configuration necessary to start testing
+- Babel compilation that compiles your tests using the same Babel options used
+by your source code
+- Source watching for re-running of tests on change
+- Collecting test coverage information and generating report
+- Easily extensible to customize your testing as needed
+
+## Requirements
+
+- Node.js ^8.10 or 10+
+- Yarn v1.2.1+, or npm v5.4+
+- Neutrino 9 and one of the Neutrino build presets
+- webpack 4
+- Jest 23
+
+## Installation
+
+`@conduitvc/jest` can be installed via the Yarn client. Inside your project,
+make sure `@conduitvc/jest` and `jest` are development dependencies. You will
+also be using another Conduit preset for building your application source code.
+
+```bash
+❯ yarn add --dev @conduitvc/jest jest
+```
+
+### Installation: React Testing
+
+Jest is often used in the testing of React components. If you are using this
+preset in a React application, which most likely means you are using
+`@conduitvc/react`, you should also consider adding React's TestUtils and
+potentially a higher-level abstraction such as Airbnb's Enzyme. These should be
+development dependencies of your project.
+
+```bash
+❯ yarn add --dev react-addons-test-utils enzyme
+```
+
+See the
+[React's Test Utils documentation](https://reactjs.org/docs/test-utils.html) for
+specifics on React testing with this approach.
+
+## Project Layout
+
+`@conduitvc/jest` follows the standard
+[project layout](https://neutrinojs.org/project-layout/) specified by Neutrino.
+This means that by default all project test code should live in a directory
+named `test` in the root of the project. Test files end in either `_test.js`,
+`.test.js`, `_test.jsx`, or `.test.jsx`.
+
+## Quickstart
+
+After adding the Jest preset to your Neutrino-built project, add a new directory
+named `test` in the root of the project, with a single JS file named
+`simple_test.js` in it.
+
+```bash
+❯ mkdir test && touch test/simple_test.js
+```
+
+Edit your `test/simple_test.js` file with the following:
+
+```js
+describe('simple', () => {
+  it('should be sane', () => {
+    expect(false).not.toBe(true);
+  });
+});
+```
+
+Now update your project's `.neutrinorc.js` to add the `@conduitvc/jest` preset.
+In this example, let's pretend this is a Node.js project:
+
+```js
+module.exports = {
+  use: [
+    '@conduitvc/node',
+    '@conduitvc/jest',
+  ],
+};
+```
+
+Create a `jest.config.js` file in the root of the project that will be used by
+the Jest CLI:
+
+```js
+// jest.config.js
+const neutrino = require('neutrino');
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'test';
+
+module.exports = neutrino().jest();
+```
+
+Then add these scripts entries to your `package.json` to simplify running Jest:
+
+```json
+{
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  }
+}
+```
+
+Run the tests, and view the results in your console:
+
+```bash
+❯ yarn test
+
+ PASS  test/simple_test.js
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        3.265s
+Ran all test suites.
+```
+
+To run tests against files from your source code, simply import them:
+
+```js
+import thingToTest from '../src/thing';
+```
+
+For more details on specific Jest usage, please refer to their
+[documentation](https://jestjs.io/).
+
+## Executing single tests
+
+By default this preset will execute every test file located in your test
+directory ending in the appropriate file extension. Pass specific test
+file names to the Jest CLI to override this.
+
+## Watching for changes
+
+`@condtuivc/jest` can watch for changes on your source directory and
+subsequently re-run tests. Simply pass `--watch` to the Jest CLI (for example
+by using the `test:watch` scripts entry above).
+
+## Coverage reporting
+
+Jest has an integrated coverage reporter, which requires no configuration. To
+collect test coverage information and generate a report, use the CLI's
+`--coverage` option.
+
+## Additional CLI options
+
+See the
+[Jest CLI options documentation](https://jestjs.io/docs/en/cli#running-from-the-command-line).
+
+## Preset options
+
+You can provide custom options and have them merged with this preset's default
+options, which are subsequently passed to Jest. You can modify Jest settings
+from `.neutrinorc.js` by overriding with any options Jest accepts. In a
+standalone Jest project this is typically done in the package.json file, but
+`@conduitvc/jest` allows configuration through this mechanism as well. This
+accepts the same configuration options as outlined in the
+[Jest documentation](https://jestjs.io/docs/en/configuration). Use an array pair
+instead of a string to supply these options.
+
+_Example: Turn off bailing on test failures._
+
+```js
+module.exports = {
+  use: [
+    ['@conduitvc/jest', { bail: false }],
+  ],
+};
+```
+
+You might need to instruct Jest to load some setup scripts (e.g. when you use
+Enzyme). 
+
+_Example: Jest setup scripts._
+
+```js
+module.exports = {
+  use: [
+    ['@conduitvc/jest', {
+      // setup script for the framework
+      setupTestFrameworkScriptFile: '<rootDir>/test-setup.js',
+      // and / or shims
+      setupFiles: [
+        '<rootDir>/shim.js'
+      ],
+    }],
+  ],
+};
+```
+
+<details>
+  <summary>test-setup.js and shim.js</summary>
+
+_test-setup.js for the example above_
+
+```js
+const Enzyme = require('enzyme');
+const EnzymeAdapter = require('enzyme-adapter-react-16');
+
+// Setup enzyme's react adapter
+Enzyme.configure({ adapter: new EnzymeAdapter() });
+```
+
+_shim.js for the example above_
+
+```js
+global.requestAnimationFrame = (callback) => {
+  setTimeout(callback, 0);
+};
+```
+
+</details>
+
+## Customizing
+
+To override the test configuration, start with the documentation on
+[customization](https://neutrinojs.org/customization/). `@conduitvc/jest`
+creates some conventions to make overriding the configuration easier once you
+are ready to make changes.
+
+### Rules
+
+The following is a list of rules and their identifiers which can be overridden:
+
+| Name | Description | NODE_ENV |
+| --- | --- | --- |
+| `compile` | Compiles JS files from the `test` directory using adopted Babel settings from other build presets. Contains a single loader named `babel`. | all |
+
+### Override configuration
+
+By following the [customization guide](https://neutrinojs.org/customization/)
+and knowing the rule, and loader IDs above, you can override and augment testing
+by providing a function to your `.neutrinorc.js` use array. You can also make
+this change from the Neutrino API when using the `use` method.
+
+In a standalone Jest project this is typically done in the package.json file,
+but `@conduitvc/jest` allows configuration through this mechanism as well. This
+accepts the same configuration options as outlined in the
+[Jest documentation](https://jestjs.io/docs/en/configuration). Use an array pair
+instead of a string to supply these options.
+
+_Example: Add a custom Babel plugin when testing:_
+
+```js
+module.exports = {
+  use: [
+    '@conduitvc/jest',
+    (neutrino) => {
+      if (process.env.NODE_ENV === 'test') {
+        neutrino.config.module
+          .rule('compile')
+          .use('babel')
+          .tap(options => merge(options, {
+            env: {
+              test: {
+                plugins: ['custom-babel-plugin']
+              },
+            },
+          }));
+      }
+    },
+  ],
+};
+```

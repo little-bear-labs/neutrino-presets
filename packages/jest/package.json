@@ -1,0 +1,18 @@
+{
+  "name": "@conduitvc/jest",
+  "version": "2.0.2",
+  "main": "index.js",
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MIT",
+  "repository": "https://github.com/ConduitVC/neutrino-presets/tree/master/packages/jest",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@neutrinojs/jest": "^9.0.0-rc.0"
+  },
+  "peerDependencies": {
+    "jest": "^23.0.0",
+    "neutrino": "^9.0.0-rc.0"
+  }
+}

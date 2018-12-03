@@ -11,25 +11,35 @@ module.exports = (
     ...opts
   } = {}) => {
   const presets = [];
+  const plugins = [
+    // Decorators generally need to be enabled *before* other syntax
+    [require.resolve('@babel/plugin-proposal-decorators'), {
+      legacy: true,
+    }],
+    [require.resolve('@babel/plugin-proposal-class-properties'), {
+      loose: true,
+    }],
+  ];
 
   if (typescript) {
     presets.push(require.resolve('@babel/preset-typescript'));
+    plugins.push(require.resolve('babel-plugin-decorator-metadata'));
+    plugins.push(require.resolve('babel-plugin-transform-function-parameter-decorators'));
   } else if (flow) {
     presets.push(require.resolve('@babel/preset-flow'));
   }
 
   const options = merge({
-    // Decorators generally need to be enabled *before* other syntax
     babel: babelMerge({
-      plugins: [
-        [require.resolve('@babel/plugin-proposal-decorators'), {
-          legacy: true,
-        }],
-        [require.resolve('@babel/plugin-proposal-class-properties'), {
-          loose: true,
-        }],
-      ],
+      plugins,
       presets,
+      env: {
+        test: {
+          presets: [
+            ['@babel/preset-env', { modules: 'commonjs' }],
+          ],
+        },
+      },
     }, babel),
   }, opts);
 
