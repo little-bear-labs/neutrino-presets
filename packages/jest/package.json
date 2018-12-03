@@ -9,7 +9,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@neutrinojs/jest": "^9.0.0-rc.0"
+    "@neutrinojs/jest": "^9.0.0-rc.0",
+    "eslint-plugin-jest": "^22.1.0"
   },
   "peerDependencies": {
     "jest": "^23.0.0",
