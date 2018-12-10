@@ -8,7 +8,6 @@ module.exports = (neutrino, opts = {}) => {
     neutrino.config.module.rule('lint').use('eslint').tap(options =>
       merge(options, {
         baseConfig: {
-          extends: ['plugin:jest/recommended'],
           plugins: ['jest'],
         },
       }));
