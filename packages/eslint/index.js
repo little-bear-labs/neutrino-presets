@@ -8,22 +8,15 @@ module.exports = ({ flow = false, typescript = false } = {}) => {
     extends: ['eslint-config-prettier'],
     plugins: ['eslint-plugin-prettier'],
     rules: {
-      'arrow-body-style': 'off',
-      'babel/new-cap': 'off',
       'consistent-return': 'off',
-      'no-continue': 'off',
-      'no-mixed-operators': 'off',
-      'no-plusplus': 'off',
-      'no-restricted-syntax': 'off',
       'no-shadow': 'off',
-      'no-unused-expressions': 'off',
       'prettier/prettier': [
         'error',
         {
           singleQuote: true,
           bracketSpacing: true,
           jsxBracketSameLine: true,
-          trailingComma: 'es5',
+          trailingComma: 'all',
         },
         { usePrettierrc: false },
       ],
