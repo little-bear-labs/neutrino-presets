@@ -17,7 +17,7 @@
     "babel-merge": "^2.0.1",
     "babel-plugin-decorator-metadata": "^0.3.0",
     "babel-plugin-transform-function-parameter-decorators": "^1.2.0",
-    "deepmerge": "^2.2.1"
+    "deepmerge": "^3.0.0"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-rc.0",
